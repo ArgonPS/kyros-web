@@ -1,34 +1,49 @@
 import Link from "next/link";
+import { DISCORD_INVITE, NAV_LINKS, SITE_URL } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--line)] bg-[#080706]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 md:flex-row md:items-center md:justify-between md:px-8">
+    <footer className="relative border-t border-[color:var(--line)] bg-[#050403]">
+      <div className="hairline absolute inset-x-0 top-0" />
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr] md:px-8">
         <div>
-          <p className="font-display text-lg tracking-[0.16em] text-[color:var(--gold)]">
+          <p className="font-display text-2xl tracking-[0.2em] text-[color:var(--gold)]">
             KYROS
           </p>
-          <p className="mt-2 max-w-md text-sm text-[color:var(--fg-muted)]">
-            A private Old School RuneScape experience. Not affiliated with Jagex
-            Ltd.
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-[color:var(--fg-muted)]">
+            A private Old School RuneScape experience. Forge your legend at{" "}
+            <a href={SITE_URL} className="text-[color:var(--gold-bright)]">
+              kyrosps.io
+            </a>
+            . Not affiliated with Jagex Ltd.
           </p>
+          <a
+            href={DISCORD_INVITE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-8 inline-flex"
+          >
+            Join Discord
+          </a>
         </div>
-        <div className="flex flex-wrap gap-5 text-sm text-[color:var(--fg-muted)]">
-          <Link href="/download" className="hover:text-[color:var(--gold)]">
-            Download
-          </Link>
-          <Link href="/vote" className="hover:text-[color:var(--gold)]">
-            Vote
-          </Link>
-          <Link href="/store" className="hover:text-[color:var(--gold)]">
-            Store
-          </Link>
-          <Link href="/discord" className="hover:text-[color:var(--gold)]">
-            Discord
-          </Link>
-          <Link href="/wiki" className="hover:text-[color:var(--gold)]">
-            Wiki
-          </Link>
+        <div className="grid grid-cols-2 gap-3 text-sm text-[color:var(--fg-muted)] sm:justify-items-end">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="tracking-wide transition hover:text-[color:var(--gold)]"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <a
+            href={DISCORD_INVITE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tracking-wide transition hover:text-[color:var(--gold)]"
+          >
+            Open Discord
+          </a>
         </div>
       </div>
     </footer>

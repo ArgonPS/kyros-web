@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Wiki",
@@ -26,34 +27,32 @@ const articles = [
 
 export default function WikiPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 pb-24 pt-32 md:px-8 md:pt-36">
-      <p className="font-display text-sm tracking-[0.3em] text-[color:var(--gold)]">
-        GUIDES
-      </p>
-      <h1 className="mt-4 font-display text-4xl tracking-wide md:text-5xl">
-        Wiki
-      </h1>
-      <p className="mt-5 max-w-2xl text-[color:var(--fg-muted)]">
-        Player guides and server docs. Articles expand as content is ready.
-      </p>
+    <>
+      <PageHero
+        eyebrow="GUIDES"
+        title="Wiki"
+        lead="Player guides and server docs. More articles as content lands."
+      />
 
-      <ul className="mt-12 max-w-2xl">
-        {articles.map((article) => (
-          <li key={article.slug} className="border-t border-[color:var(--line)]">
-            <Link
-              href={`/wiki/${article.slug}`}
-              className="block py-6 transition hover:pl-1"
-            >
-              <h2 className="font-display text-xl text-[color:var(--gold)]">
-                {article.title}
-              </h2>
-              <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
-                {article.summary}
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="mx-auto max-w-6xl px-5 pb-24 md:px-8">
+        <ul className="max-w-2xl">
+          {articles.map((article) => (
+            <li key={article.slug} className="border-t border-[color:var(--line)]">
+              <Link
+                href={`/wiki/${article.slug}`}
+                className="group block py-7 transition hover:pl-1"
+              >
+                <h2 className="font-display text-xl text-[color:var(--gold)] group-hover:text-[color:var(--gold-bright)]">
+                  {article.title}
+                </h2>
+                <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
+                  {article.summary}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
