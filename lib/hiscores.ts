@@ -1,4 +1,15 @@
-export type GameMode = "normal" | "ironman" | "hardcore" | "ultimate";
+export type BoardTab = "skills" | "bosses";
+
+export type GameMode =
+  | "all"
+  | "normal"
+  | "ironman"
+  | "group_ironman"
+  | "hardcore"
+  | "hardcore_group"
+  | "ultimate";
+
+export type XpMode = "all" | "easy" | "intermediate" | "hard" | "extreme";
 
 export type HiscoreSkill =
   | "overall"
@@ -34,10 +45,21 @@ export type HiscoreRow = {
 };
 
 export const GAME_MODES: { id: GameMode; label: string }[] = [
+  { id: "all", label: "Every Mode" },
   { id: "normal", label: "Normal" },
   { id: "ironman", label: "Ironman" },
-  { id: "hardcore", label: "Hardcore" },
-  { id: "ultimate", label: "Ultimate" },
+  { id: "group_ironman", label: "Group Ironman" },
+  { id: "hardcore", label: "Hardcore Ironman" },
+  { id: "hardcore_group", label: "Hardcore Group Ironman" },
+  { id: "ultimate", label: "Ultimate Ironman" },
+];
+
+export const XP_MODES: { id: XpMode; label: string }[] = [
+  { id: "all", label: "Every Experience" },
+  { id: "easy", label: "Easy" },
+  { id: "intermediate", label: "Intermediate" },
+  { id: "hard", label: "Hard" },
+  { id: "extreme", label: "Extreme" },
 ];
 
 export const HISCORE_SKILLS: { id: HiscoreSkill; label: string }[] = [
@@ -67,19 +89,32 @@ export const HISCORE_SKILLS: { id: HiscoreSkill; label: string }[] = [
   { id: "construction", label: "Construction" },
 ];
 
-/** Placeholder rows until the live hiscores API is wired. */
-export const PLACEHOLDER_HISCORES: HiscoreRow[] = [
-  { rank: 1, username: "—", level: 0, experience: 0 },
-  { rank: 2, username: "—", level: 0, experience: 0 },
-  { rank: 3, username: "—", level: 0, experience: 0 },
-  { rank: 4, username: "—", level: 0, experience: 0 },
-  { rank: 5, username: "—", level: 0, experience: 0 },
-  { rank: 6, username: "—", level: 0, experience: 0 },
-  { rank: 7, username: "—", level: 0, experience: 0 },
-  { rank: 8, username: "—", level: 0, experience: 0 },
-  { rank: 9, username: "—", level: 0, experience: 0 },
-  { rank: 10, username: "—", level: 0, experience: 0 },
+export const HISCORE_BOSSES: { id: string; label: string }[] = [
+  { id: "abyssal_sire", label: "Abyssal Sire" },
+  { id: "alchemical_hydra", label: "Alchemical Hydra" },
+  { id: "callisto", label: "Callisto" },
+  { id: "cerberus", label: "Cerberus" },
+  { id: "cox", label: "Chambers of Xeric" },
+  { id: "corp", label: "Corporeal Beast" },
+  { id: "gauntlet", label: "The Gauntlet" },
+  { id: "nex", label: "Nex" },
+  { id: "nightmare", label: "The Nightmare" },
+  { id: "tob", label: "Theatre of Blood" },
+  { id: "toa", label: "Tombs of Amascut" },
+  { id: "vorkath", label: "Vorkath" },
+  { id: "zulrah", label: "Zulrah" },
 ];
+
+/** Placeholder rows until the live hiscores API is wired. */
+export const PLACEHOLDER_HISCORES: HiscoreRow[] = Array.from(
+  { length: 25 },
+  (_, i) => ({
+    rank: i + 1,
+    username: "—",
+    level: 0,
+    experience: 0,
+  }),
+);
 
 export function formatXp(n: number) {
   return n.toLocaleString("en-US");
