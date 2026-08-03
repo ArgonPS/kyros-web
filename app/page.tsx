@@ -1,6 +1,21 @@
 import Link from "next/link";
 import { DISCORD_INVITE } from "@/lib/site";
 
+const features = [
+  {
+    title: "Raid hunts",
+    body: "Team up for Chambers of Xeric, Theatre of Blood, and Tombs of Amascut — loot together.",
+  },
+  {
+    title: "Bossing endgame",
+    body: "Chase pets, uniques, and killcount across the full OSRS-style boss roster.",
+  },
+  {
+    title: "Your account, your pace",
+    body: "Jump in fresh or push high rates — compete on Hiscores across game modes.",
+  },
+];
+
 const paths = [
   {
     title: "Download",
@@ -9,17 +24,17 @@ const paths = [
     cta: "Get client",
   },
   {
+    title: "Hiscores",
+    body: "Overall and skill leaderboards by gamemode — ready when the world is.",
+    href: "/hiscores",
+    cta: "View ranks",
+  },
+  {
     title: "Discord",
     body: "Announcements, tickets, LFG, and the player community.",
     href: DISCORD_INVITE,
     external: true,
     cta: "Join now",
-  },
-  {
-    title: "Vote",
-    body: "Support the world on toplists and claim in-game rewards.",
-    href: "/vote",
-    cta: "Vote sites",
   },
 ];
 
@@ -49,12 +64,12 @@ export default function HomePage() {
             <span className="gold-text">KYROS</span>
           </h1>
           <p className="animate-rise-delay-2 mt-6 max-w-xl text-base leading-relaxed text-[color:var(--fg-muted)] md:mt-8 md:text-xl">
-            Forge your legend. Download the client, join the Discord, and step
-            into a private Old School world built for players.
+            Unleash your power, explore the unknown, and write your legend —
+            download the client, climb the hiscores, and join the Discord.
           </p>
           <div className="animate-rise-delay-2 mt-10 flex flex-wrap gap-4">
             <Link href="/download" className="btn-primary">
-              Download Client
+              Play Now
             </Link>
             <a
               href={DISCORD_INVITE}
@@ -74,11 +89,44 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 md:px-8">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl tracking-wide md:text-4xl">
-              Enter the world
+              The ultimate adventure
             </h2>
             <p className="mt-4 text-[color:var(--fg-muted)]">
-              Everything you need before the first login — client, community,
-              and votes.
+              Built around the pillars players expect from top private worlds —
+              raids, bosses, and competitive progression.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-10 md:grid-cols-3">
+            {features.map((f, i) => (
+              <div
+                key={f.title}
+                className="border-t border-[color:var(--line)] pt-6"
+              >
+                <p className="font-display text-xs tracking-[0.28em] text-[color:var(--gold-deep)]">
+                  0{i + 1}
+                </p>
+                <h3 className="mt-3 font-display text-2xl tracking-wide text-[color:var(--gold)]">
+                  {f.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[color:var(--fg-muted)]">
+                  {f.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="hairline" />
+
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl tracking-wide md:text-4xl">
+              Ready to start playing?
+            </h2>
+            <p className="mt-4 text-[color:var(--fg-muted)]">
+              Client, hiscores, and community — everything in one place.
             </p>
           </div>
 
@@ -124,30 +172,6 @@ export default function HomePage() {
               );
             })}
           </div>
-        </div>
-      </section>
-
-      <div className="hairline" />
-
-      <section className="py-20 md:py-24">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-5 md:flex-row md:items-end md:px-8">
-          <div className="max-w-xl">
-            <h2 className="font-display text-3xl tracking-wide md:text-4xl">
-              The community is live
-            </h2>
-            <p className="mt-4 text-[color:var(--fg-muted)]">
-              Rules, tickets, announcements, and players — join Discord while
-              the public world comes online.
-            </p>
-          </div>
-          <a
-            href={DISCORD_INVITE}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-          >
-            discord.gg/munhcFgfez
-          </a>
         </div>
       </section>
     </>
