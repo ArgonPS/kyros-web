@@ -16,7 +16,7 @@ const articles = [
   {
     slug: "economy",
     title: "Economy",
-    summary: "Kyro Points, trading, and store basics.",
+    summary: "Donator Points, Kyro Points, trading, and store basics.",
   },
   {
     slug: "commands",

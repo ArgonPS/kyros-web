@@ -17,8 +17,9 @@ const articles: Record<
   economy: {
     title: "Economy",
     body: [
-      "Kyro Points are the donation currency used at the in-game point store.",
-      "When the web store is live, purchases claim into your account via the game API.",
+      "Donator Points are the donation currency. Buy bonds from the Store, redeem them in-game, then spend at the Donator Point Store.",
+      "Kyro Points (also called Reason Points) are a separate earnable currency for the in-game Kyro Point Store — not purchased with real money.",
+      "Lifetime dollars donated unlock donator ranks with distinct chat icons. See the Store page for packages and rank thresholds.",
       "Trading between players follows the same spirit as Old School — fair play enforced by staff.",
     ],
   },
