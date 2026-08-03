@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Figtree } from "next/font/google";
+import { Cinzel, Figtree, Oswald } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
@@ -8,6 +8,12 @@ const cinzel = Cinzel({
   subsets: ["latin"],
   variable: "--font-cinzel",
   weight: ["400", "600", "700"],
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  weight: ["400", "500", "600", "700"],
 });
 
 const figtree = Figtree({
@@ -22,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s · Kyros",
   },
   description:
-    "Kyros is a private Old School RuneScape server. Download the client, join Discord, vote for rewards, and explore the wiki.",
+    "Kyros is a private Old School RuneScape server. Download the client, join Discord, climb hiscores, and vote for rewards.",
   metadataBase: new URL("https://kyrosps.io"),
   openGraph: {
     title: "Kyros",
@@ -39,8 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${figtree.variable}`}>
-      <body className="atmosphere noise antialiased">
+    <html
+      lang="en"
+      className={`${cinzel.variable} ${oswald.variable} ${figtree.variable}`}
+    >
+      <body className="atmosphere antialiased">
         <SiteHeader />
         <main className="relative z-0 min-h-screen">{children}</main>
         <SiteFooter />

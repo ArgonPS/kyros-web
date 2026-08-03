@@ -9,19 +9,15 @@ type Props = {
 
 export function PageHero({ eyebrow, title, lead, children }: Props) {
   return (
-    <div className="relative overflow-hidden pb-10 pt-32 md:pt-36">
-      <div
-        aria-hidden
-        className="glow-orb pointer-events-none absolute left-1/2 top-8 h-[28vmin] w-[55vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,168,75,0.2),transparent_70%)] blur-2xl"
-      />
-      <div className="relative mx-auto max-w-6xl px-5 md:px-8">
-        <p className="animate-rise font-display text-sm tracking-[0.34em] text-[color:var(--gold)]">
+    <div className="relative overflow-hidden border-b border-white/10 bg-[#0a0a0a] pb-10 pt-14 md:pt-16">
+      <div className="relative mx-auto max-w-6xl px-4 md:px-8">
+        <p className="animate-rise font-display text-sm tracking-[0.28em] text-[color:var(--gold)] uppercase">
           {eyebrow}
         </p>
-        <h1 className="animate-rise-delay mt-4 max-w-3xl font-display text-4xl tracking-wide md:text-5xl lg:text-6xl">
+        <h1 className="animate-rise-delay mt-3 font-display text-4xl tracking-[0.06em] text-white uppercase md:text-5xl lg:text-6xl">
           {title}
         </h1>
-        <p className="animate-rise-delay-2 mt-5 max-w-2xl text-base leading-relaxed text-[color:var(--fg-muted)] md:text-lg">
+        <p className="animate-rise-delay-2 mt-4 max-w-2xl text-base leading-relaxed text-[color:var(--fg-muted)] md:text-lg">
           {lead}
         </p>
         {children ? <div className="animate-rise-delay-2 mt-8">{children}</div> : null}
