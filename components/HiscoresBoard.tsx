@@ -116,7 +116,7 @@ export function HiscoresBoard() {
           <p className="px-2 pb-3 pt-1 font-display text-xs tracking-[0.22em] text-[color:var(--gold)] uppercase">
             {tab === "skills" ? "Skills" : "Bosses"}
           </p>
-          <div className="flex max-h-[32rem] flex-col gap-0.5 overflow-y-auto">
+          <div className="flex flex-col gap-0.5">
             {sidebarItems.map((item) => (
               <button
                 key={item.id}
