@@ -4,6 +4,11 @@ export const DISCORD_INVITE =
   process.env.NEXT_PUBLIC_DISCORD_INVITE?.trim() ||
   "https://discord.gg/munhcFgfez";
 
+/** GitHub Release asset for the Windows client zip. Override via env when republishing. */
+export const CLIENT_DOWNLOAD_URL =
+  process.env.NEXT_PUBLIC_CLIENT_DOWNLOAD_URL?.trim() ||
+  "https://github.com/ArgonPS/kyros-web/releases/latest/download/Kyros-Client.zip";
+
 /** Reason-style primary nav */
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -41,5 +46,12 @@ export const NEWS = [
     title: "Hiscores page is ready",
     excerpt:
       "Leaderboards UI is live on kyrosps.io — live ranks connect when the world opens.",
+  },
+  {
+    slug: "client-download",
+    date: "Aug 3, 2026",
+    title: "Client download is up",
+    excerpt:
+      "Grab the Windows client from the Play page. It targets play.kyrosps.io — connect when the world goes live.",
   },
 ] as const;

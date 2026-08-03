@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { DISCORD_INVITE } from "@/lib/site";
+import { CLIENT_DOWNLOAD_URL, DISCORD_INVITE } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
 
 export const metadata: Metadata = {
@@ -23,12 +23,13 @@ export default function DownloadPage() {
             Windows
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-[color:var(--fg-muted)]">
-            Public launcher package lands here once the game VPS is live. Until
-            then, join Discord for launch updates.
+            Unzip, run Play-Kyros.bat, and log in. The client targets{" "}
+            <span className="text-white">play.kyrosps.io</span> — connection
+            works once the world and DNS are live.
           </p>
-          <span className="btn-primary mt-8 inline-flex cursor-not-allowed opacity-55">
-            Coming Soon
-          </span>
+          <a href={CLIENT_DOWNLOAD_URL} className="btn-primary mt-8 inline-flex">
+            Download client
+          </a>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
               href={DISCORD_INVITE}
@@ -36,7 +37,7 @@ export default function DownloadPage() {
               rel="noopener noreferrer"
               className="btn-ghost"
             >
-              Get notified on Discord
+              Discord status
             </a>
             <Link href="/wiki/getting-started" className="btn-ghost">
               Getting started
@@ -45,9 +46,9 @@ export default function DownloadPage() {
         </div>
 
         <ol className="mt-16 max-w-xl list-decimal space-y-3 pl-5 text-[color:var(--fg-muted)]">
-          <li>Install Java 17 or newer.</li>
-          <li>Download and run the Kyros client.</li>
-          <li>Create your character and join the world.</li>
+          <li>Install Java 17 or newer from Adoptium.</li>
+          <li>Download and unzip the Kyros client.</li>
+          <li>Run Play-Kyros.bat and create your character.</li>
         </ol>
       </div>
     </>
