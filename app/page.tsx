@@ -1,40 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { DISCORD_INVITE } from "@/lib/site";
-
-const contentTiles = [
-  {
-    title: "PvP Content",
-    body: "Wilderness fights, risk, and competitive PKing when the world is live.",
-    href: "/download",
-    tone: "linear-gradient(135deg, rgba(196,60,40,0.55), rgba(10,10,10,0.2))",
-  },
-  {
-    title: "PvM Content",
-    body: "Raids, bosses, and endgame hunts with friends from Discord LFG.",
-    href: "/download",
-    tone: "linear-gradient(135deg, rgba(224,180,74,0.4), rgba(10,10,10,0.25))",
-  },
-  {
-    title: "Skilling Content",
-    body: "Train, gather, and climb the hiscores across every skill.",
-    href: "/hiscores",
-    tone: "linear-gradient(135deg, rgba(47,143,136,0.45), rgba(10,10,10,0.25))",
-  },
-  {
-    title: "Community",
-    body: "Tickets, events, announcements — the Discord is already open.",
-    href: DISCORD_INVITE,
-    external: true,
-    tone: "linear-gradient(135deg, rgba(80,80,90,0.5), rgba(10,10,10,0.3))",
-  },
-];
+import { GalleryCarousel } from "@/components/GalleryCarousel";
+import { DISCORD_INVITE, NEWS } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero — Roat-style full bleed */}
-      <section className="relative min-h-[92svh] overflow-hidden">
+      {/* Hero — Reason-style: brand + pitch + CTAs over full art */}
+      <section className="relative min-h-[88svh] overflow-hidden">
         <Image
           src="/kyros-hero-bg.png"
           alt=""
@@ -43,34 +16,28 @@ export default function HomePage() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/50" />
 
-        <div className="relative mx-auto flex min-h-[92svh] max-w-6xl flex-col justify-center px-4 pb-16 pt-10 md:px-8">
-          <div className="animate-rise online-pill w-fit">
-            <span className="online-dot" aria-hidden />
-            Community is live — join them
-          </div>
-
-          <p className="animate-rise-delay mt-8 font-display text-sm tracking-[0.28em] text-white/70 uppercase md:text-base">
-            Explore the content of
-          </p>
-          <h1 className="animate-rise-delay mt-3 font-brand text-6xl tracking-[0.12em] text-white sm:text-7xl md:text-8xl lg:text-9xl">
+        <div className="relative mx-auto flex min-h-[88svh] max-w-6xl flex-col items-center justify-center px-4 pb-20 pt-16 text-center md:px-8">
+          <Image
+            src="/kyros-mark.png"
+            alt="Kyros"
+            width={96}
+            height={96}
+            className="animate-rise mb-6 h-20 w-20 object-cover md:h-24 md:w-24"
+            priority
+          />
+          <h1 className="animate-rise-delay font-brand text-5xl tracking-[0.14em] text-white sm:text-6xl md:text-7xl">
             <span className="gold-text">KYROS</span>
           </h1>
-          <p className="animate-rise-delay-2 mt-2 font-display text-2xl tracking-[0.08em] text-white uppercase md:text-4xl">
-            Here
+          <p className="animate-rise-delay-2 mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85 md:text-xl">
+            Designed by passionate players — a private Old School experience with
+            unique features and boundless fun. The game you love, reimagined.
           </p>
-          <p className="animate-rise-delay-2 mt-6 max-w-lg text-base leading-relaxed text-white/75 md:text-lg">
-            If you&apos;re ready to play, download the client. Until launch, jump
-            into Discord for news, tickets, and the community.
-          </p>
-          <div className="animate-rise-delay-2 mt-9 flex flex-wrap gap-4">
+          <div className="animate-rise-delay-2 mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link href="/download" className="btn-play">
               Play Now
-            </Link>
-            <Link href="/download" className="btn-primary">
-              Download Client
             </Link>
             <a
               href={DISCORD_INVITE}
@@ -84,96 +51,134 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Content tiles */}
-      <section className="bg-[#070707] py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
-          <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 className="font-display text-3xl tracking-[0.08em] text-white uppercase md:text-4xl">
-                Explore Kyros
-              </h2>
-              <p className="mt-2 max-w-xl text-[color:var(--fg-muted)]">
-                PvP, PvM, skilling, and community — pick your path and jump in.
-              </p>
+      {/* Welcome / About — Reason style */}
+      <section className="bg-[#080808] py-16 md:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2 md:px-8">
+          <div>
+            <p className="font-display text-sm tracking-[0.28em] text-[color:var(--gold)] uppercase">
+              Welcome to Kyros
+            </p>
+            <h2 className="mt-3 font-display text-3xl tracking-[0.06em] text-white uppercase md:text-4xl">
+              About Kyros
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-[color:var(--fg-muted)] md:text-lg">
+              Kyros is a one-of-a-kind OSRS experience — veterans of the grind who
+              wanted more fun, more content, and a community that actually sticks
+              around. Download when the world opens, or jump into Discord today.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/download" className="btn-primary">
+                Download Kyros
+              </Link>
+              <a
+                href={DISCORD_INVITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                Join Discord
+              </a>
             </div>
-            <Link href="/download" className="btn-play w-fit">
-              Play Now
-            </Link>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {contentTiles.map((tile) => {
-              const style = {
-                ["--tile-bg" as string]: `${tile.tone}, url('/kyros-hero-bg.png')`,
-              };
-              const inner = (
-                <div className="flex h-full min-h-[260px] flex-col justify-end p-6 md:p-8">
-                  <h3 className="font-display text-2xl tracking-[0.1em] text-white uppercase md:text-3xl">
-                    {tile.title}
-                  </h3>
-                  <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/75">
-                    {tile.body}
-                  </p>
-                  <span className="btn-play mt-6 w-fit !py-2 !text-xs">
-                    Play Now
-                  </span>
-                </div>
-              );
-
-              if (tile.external) {
-                return (
-                  <a
-                    key={tile.title}
-                    href={tile.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="content-tile block"
-                    style={style}
-                  >
-                    {inner}
-                  </a>
-                );
-              }
-
-              return (
-                <Link
-                  key={tile.title}
-                  href={tile.href}
-                  className="content-tile block"
-                  style={style}
-                >
-                  {inner}
-                </Link>
-              );
-            })}
+          <div className="relative aspect-[16/10] overflow-hidden border border-white/10">
+            <Image
+              src="/gallery/raid.png"
+              alt="Kyros raids"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA like Roat */}
-      <section className="relative overflow-hidden border-y border-white/10">
+      {/* In-game gallery */}
+      <section className="border-y border-white/10 bg-[#050505] py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="mb-10 text-center">
+            <p className="font-display text-sm tracking-[0.28em] text-[color:var(--gold)] uppercase">
+              In-game
+            </p>
+            <h2 className="mt-3 font-display text-3xl tracking-[0.06em] text-white uppercase md:text-4xl">
+              See the world
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-[color:var(--fg-muted)]">
+              Bossing, raids, skilling, wilderness, and the economy — a taste of
+              what&apos;s waiting on Kyros.
+            </p>
+          </div>
+          <GalleryCarousel />
+        </div>
+      </section>
+
+      {/* Latest news */}
+      <section className="bg-[#0a0a0a] py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="font-display text-sm tracking-[0.28em] text-[color:var(--gold)] uppercase">
+                Updates
+              </p>
+              <h2 className="mt-2 font-display text-3xl tracking-[0.06em] text-white uppercase md:text-4xl">
+                Latest news
+              </h2>
+            </div>
+            <Link
+              href="/news"
+              className="font-display text-sm tracking-[0.16em] text-[color:var(--gold)] uppercase hover:text-[color:var(--gold-bright)]"
+            >
+              Browse all news →
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {NEWS.map((item) => (
+              <article
+                key={item.slug}
+                className="border border-white/10 bg-black/40 p-6 transition hover:border-[color:var(--gold)]/50"
+              >
+                <p className="font-display text-xs tracking-[0.18em] text-[color:var(--fg-muted)] uppercase">
+                  {item.date}
+                </p>
+                <h3 className="mt-3 font-display text-xl tracking-wide text-white uppercase">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[color:var(--fg-muted)]">
+                  {item.excerpt}
+                </p>
+                <Link
+                  href="/news"
+                  className="mt-5 inline-block text-xs font-semibold uppercase tracking-[0.16em] text-[color:var(--gold)]"
+                >
+                  Read more
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA — Reason style */}
+      <section className="relative overflow-hidden py-20 md:py-28">
         <Image
-          src="/kyros-hero-bg.png"
+          src="/gallery/city.png"
           alt=""
           fill
-          className="object-cover object-[center_70%] opacity-40"
+          className="object-cover opacity-30"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/75" />
-        <div className="relative mx-auto max-w-3xl px-4 py-20 text-center md:px-8 md:py-24">
-          <h2 className="font-display text-3xl tracking-[0.1em] text-white uppercase md:text-5xl">
-            Ready to join the action?
+        <div className="relative mx-auto max-w-3xl px-4 text-center md:px-8">
+          <h2 className="font-display text-3xl tracking-[0.08em] text-white uppercase md:text-5xl">
+            Ready to begin your adventure?
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-[color:var(--fg-muted)] md:text-lg">
-            Like what you see? More content is coming weekly. Download when the
-            world opens — or join Discord now and be first in line.
+            Join a community of passionate players and experience a one-of-a-kind
+            journey. Start today.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <Link href="/download" className="btn-play">
               Play Now
-            </Link>
-            <Link href="/hiscores" className="btn-ghost">
-              Hiscores
             </Link>
             <a
               href={DISCORD_INVITE}
@@ -181,7 +186,7 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="btn-primary"
             >
-              Join Discord
+              Join Now
             </a>
           </div>
         </div>

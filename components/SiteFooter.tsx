@@ -22,7 +22,12 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm text-[color:var(--fg-muted)]">
             <li>
               <Link href="/download" className="hover:text-[color:var(--gold)]">
-                Download
+                Play
+              </Link>
+            </li>
+            <li>
+              <Link href="/news" className="hover:text-[color:var(--gold)]">
+                News
               </Link>
             </li>
             <li>
@@ -37,7 +42,7 @@ export function SiteFooter() {
             </li>
             <li>
               <Link href="/vote" className="hover:text-[color:var(--gold)]">
-                Vote for a reward
+                Vote
               </Link>
             </li>
           </ul>
