@@ -73,10 +73,15 @@ export async function GET(req: Request) {
     });
 
     for (const pi of unclaimed.data) {
-      const vm = paymentIntentToViewModel(pi, usernameRaw);
+      // Search index can lag after claim/confirm — re-check live metadata
+      const fresh = await stripe.paymentIntents.retrieve(pi.id);
+      if (fresh.metadata?.claimed === "true") continue;
+      const vm = paymentIntentToViewModel(fresh, usernameRaw);
       if (vm) {
         viewModels.push(vm);
-        totalSpentThisClaim += Number(pi.metadata.usd_cents || pi.amount || 0);
+        totalSpentThisClaim += Number(
+          fresh.metadata.usd_cents || fresh.amount || 0,
+        );
       }
     }
 
