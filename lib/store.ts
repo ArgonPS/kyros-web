@@ -22,7 +22,8 @@ export const BOND_PACKAGES: BondPackage[] = [
     usd: 5,
     points: 500,
     bondItemId: 30464,
-    stripePriceId: "price_1U0XvwFra3ryrFFUHGWiNEqu",
+    // Test-mode defaults; override with STRIPE_PRICE_* or live prices via env for production go-live
+    stripePriceId: "price_1U0Y70Fra3ryrFFUBpRETGoR",
   },
   {
     id: "boost",
@@ -30,7 +31,7 @@ export const BOND_PACKAGES: BondPackage[] = [
     usd: 10,
     points: 1_000,
     bondItemId: 30497,
-    stripePriceId: "price_1U0XvxFra3ryrFFUqNP3txDp",
+    stripePriceId: "price_1U0Y71Fra3ryrFFUiPZfleis",
   },
   {
     id: "bundle",
@@ -38,7 +39,7 @@ export const BOND_PACKAGES: BondPackage[] = [
     usd: 25,
     points: 3_000,
     bondItemId: 30466,
-    stripePriceId: "price_1U0XvyFra3ryrFFUgkdWfNm6",
+    stripePriceId: "price_1U0Y73Fra3ryrFFUgijId8JA",
   },
   {
     id: "support",
@@ -46,7 +47,7 @@ export const BOND_PACKAGES: BondPackage[] = [
     usd: 50,
     points: 6_000,
     bondItemId: 30467,
-    stripePriceId: "price_1U0XvyFra3ryrFFUM5pXo5HJ",
+    stripePriceId: "price_1U0Y74Fra3ryrFFUOpeh5mfm",
   },
   {
     id: "patron",
@@ -54,7 +55,7 @@ export const BOND_PACKAGES: BondPackage[] = [
     usd: 100,
     points: 12_500,
     bondItemId: 30468,
-    stripePriceId: "price_1U0XvzFra3ryrFFUmTIaC8Wu",
+    stripePriceId: "price_1U0Y75Fra3ryrFFUGtIrNgIk",
     bestValue: true,
   },
 ];
