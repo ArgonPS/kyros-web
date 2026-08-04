@@ -35,7 +35,7 @@ type DonationRequestClaim = {
 };
 
 export async function GET(req: Request) {
-  if (!(await isStoreAuthenticated())) {
+  if (!(await isStoreAuthenticated(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

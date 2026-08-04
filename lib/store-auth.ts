@@ -31,12 +31,36 @@ export function verifyPassword(password: string): boolean {
   }
 }
 
-export async function isStoreAuthenticated(): Promise<boolean> {
+function tokenFromCookieHeader(cookieHeader: string | null): string | undefined {
+  if (!cookieHeader) return undefined;
+  const parts = cookieHeader.split(";");
+  for (const part of parts) {
+    const [name, ...rest] = part.trim().split("=");
+    if (name === AUTH_COOKIE) {
+      return decodeURIComponent(rest.join("="));
+    }
+  }
+  return undefined;
+}
+
+export async function isStoreAuthenticated(req?: Request): Promise<boolean> {
   try {
-    const jar = await cookies();
-    const token = jar.get(AUTH_COOKIE)?.value;
+    const expected = getStorePassword();
+    let token: string | undefined;
+
+    try {
+      const jar = await cookies();
+      token = jar.get(AUTH_COOKIE)?.value;
+    } catch {
+      // cookies() unavailable outside a request context
+    }
+
+    if (!token && req) {
+      token = tokenFromCookieHeader(req.headers.get("cookie"));
+    }
+
     if (!token) return false;
-    return safeEqual(token, getStorePassword());
+    return safeEqual(token, expected);
   } catch {
     return false;
   }

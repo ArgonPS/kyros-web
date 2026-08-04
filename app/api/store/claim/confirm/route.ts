@@ -8,7 +8,7 @@ export const runtime = "nodejs";
  * Matches DonationCommandHandler.markAsClaimed — POST body is JSON array of basket IDs (PaymentIntent ids).
  */
 export async function POST(req: Request) {
-  if (!(await isStoreAuthenticated())) {
+  if (!(await isStoreAuthenticated(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
