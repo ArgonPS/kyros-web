@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CLIENT_DOWNLOAD_URL, DISCORD_INVITE } from "@/lib/site";
+import { DISCORD_INVITE } from "@/lib/site";
+import { DOWNLOAD_OPTIONS } from "@/lib/downloads";
 import { PageHero } from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Download",
-  description: "Download the Kyros client and start playing.",
+  description: "Download the Kyros client for Windows or Mac and start playing.",
 };
 
 export default function DownloadPage() {
@@ -14,41 +15,74 @@ export default function DownloadPage() {
       <PageHero
         eyebrow="CLIENT"
         title="Download Kyros"
-        lead="Windows client with Java 17+. Create your account in-game — no website signup."
+        lead="Create your account in-game — no website signup. Connects to play.kyrosps.io."
       />
 
       <div className="mx-auto max-w-6xl px-5 pb-24 md:px-8">
-        <div className="panel max-w-xl p-8 md:p-10">
-          <h2 className="font-display text-2xl text-[color:var(--gold)]">
-            Windows
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-[color:var(--fg-muted)]">
-            Unzip, run Play-Kyros.bat, and log in. The client targets{" "}
-            <span className="text-white">play.kyrosps.io</span> — connection
-            works once the world and DNS are live.
-          </p>
-          <a href={CLIENT_DOWNLOAD_URL} className="btn-primary mt-8 inline-flex">
-            Download client
-          </a>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href={DISCORD_INVITE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost"
+        <div className="grid gap-5 md:grid-cols-2">
+          {DOWNLOAD_OPTIONS.map((opt) => (
+            <article
+              key={opt.id}
+              className={`panel relative flex flex-col p-7 ${
+                opt.recommended ? "ring-1 ring-[color:var(--gold)]/45" : ""
+              }`}
             >
-              Discord status
-            </a>
-            <Link href="/wiki/getting-started" className="btn-ghost">
-              Getting started
-            </Link>
-          </div>
+              {opt.recommended ? (
+                <span className="absolute top-4 right-4 font-display text-[0.65rem] tracking-[0.16em] text-[color:var(--gold)] uppercase">
+                  Recommended
+                </span>
+              ) : null}
+              <p className="font-display text-xs tracking-[0.2em] text-[color:var(--fg-muted)] uppercase">
+                {opt.badge}
+              </p>
+              <h2 className="mt-2 font-display text-2xl tracking-wide text-[color:var(--gold)]">
+                {opt.title}
+              </h2>
+              <p className="mt-1 text-sm text-white/80">{opt.subtitle}</p>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-[color:var(--fg-muted)]">
+                {opt.description}
+              </p>
+              <a href={opt.href} className="btn-primary mt-8 inline-flex w-full">
+                {opt.cta}
+              </a>
+            </article>
+          ))}
         </div>
 
-        <ol className="mt-16 max-w-xl list-decimal space-y-3 pl-5 text-[color:var(--fg-muted)]">
-          <li>Install Java 17 or newer from Adoptium.</li>
-          <li>Download and unzip the Kyros client.</li>
-          <li>Run Play-Kyros.bat and create your character.</li>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <a
+            href={DISCORD_INVITE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+          >
+            Discord help
+          </a>
+          <Link href="/wiki/getting-started" className="btn-ghost">
+            Getting started
+          </Link>
+          <a
+            href="https://adoptium.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+          >
+            Get Java (Adoptium)
+          </a>
+        </div>
+
+        <ol className="mt-16 max-w-2xl list-decimal space-y-3 pl-5 text-[color:var(--fg-muted)]">
+          <li>
+            Prefer the <span className="text-white">Windows Launcher</span> if
+            you do not want to install Java yourself.
+          </li>
+          <li>
+            JAR packages need Java 17+ and must be started with{" "}
+            <span className="text-white">Play-Kyros.bat</span> /{" "}
+            <span className="text-white">Play-Kyros.command</span> — not by
+            double-clicking the .jar.
+          </li>
+          <li>Create your character in-game after the client loads.</li>
         </ol>
       </div>
     </>

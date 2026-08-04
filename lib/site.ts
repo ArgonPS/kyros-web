@@ -4,10 +4,10 @@ export const DISCORD_INVITE =
   process.env.NEXT_PUBLIC_DISCORD_INVITE?.trim() ||
   "https://discord.gg/munhcFgfez";
 
-/** GitHub Release asset for the Windows client zip. Override via env when republishing. */
+/** Default / legacy single download — prefer DOWNLOAD_OPTIONS in lib/downloads.ts */
 export const CLIENT_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_CLIENT_DOWNLOAD_URL?.trim() ||
-  "https://github.com/ArgonPS/kyros-web/releases/latest/download/Kyros-Client.zip";
+  "https://github.com/ArgonPS/kyros-web/releases/latest/download/Kyros-Windows-Launcher.zip";
 
 /** Reason-style primary nav */
 export const NAV_LINKS = [
