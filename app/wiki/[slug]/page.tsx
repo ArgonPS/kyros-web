@@ -11,8 +11,8 @@ const articles: Record<
     title: "Getting started",
     body: [
       "Install Java 17 or newer from Adoptium (Temurin). Older Java versions will not launch the client.",
-      "Download from the Play page. Windows users should prefer the Launcher (bundled Java). Mac users unzip and open Play-Kyros.command. Create your character in-game — no website signup.",
-      "Do not double-click Kyros.jar alone — use the launcher scripts or Kyros.exe. The client connects to play.kyrosps.io.",
+      "Download from the Play page. Prefer Kyros-Setup.exe on Windows (Java included). Mac users run Kyros-Mac-Setup.command. Create your character in-game — no website signup.",
+      "Installers put the client in your user folder and create shortcuts — no unzipping. The client connects to play.kyrosps.io.",
       "Useful first steps in-game: ::home to return to Edgeville, talk to the starter guide, and open the vote / store pages from the website when you want rewards.",
       `Need help? Open a ticket on Discord: ${DISCORD_INVITE}`,
     ],

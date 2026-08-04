@@ -73,14 +73,12 @@ export default function DownloadPage() {
 
         <ol className="mt-16 max-w-2xl list-decimal space-y-3 pl-5 text-[color:var(--fg-muted)]">
           <li>
-            Prefer the <span className="text-white">Windows Launcher</span> if
-            you do not want to install Java yourself.
+            Prefer <span className="text-white">Kyros-Setup.exe</span> — one
+            installer, Java included, desktop shortcut created for you.
           </li>
           <li>
-            JAR packages need Java 17+ and must be started with{" "}
-            <span className="text-white">Play-Kyros.bat</span> /{" "}
-            <span className="text-white">Play-Kyros.command</span> — not by
-            double-clicking the .jar.
+            JAR / Mac setups need Java 17+ from Adoptium. They install to your
+            user folder — no unzipping a zip archive.
           </li>
           <li>Create your character in-game after the client loads.</li>
         </ol>
