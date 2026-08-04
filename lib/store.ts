@@ -6,17 +6,57 @@ export type BondPackage = {
   name: string;
   usd: number;
   points: number;
+  /** In-game bond item id delivered on ::claim */
+  bondItemId: number;
+  /** Stripe Price ID (live). Override via STRIPE_PRICE_<ID> env. */
+  stripePriceId: string;
   /** Highlight as best value (Patron $100). */
   bestValue?: boolean;
 };
 
-/** Matches DonatorBond.redeem amounts. */
+/** Matches DonatorBond.redeem amounts + bond item IDs. */
 export const BOND_PACKAGES: BondPackage[] = [
-  { id: "starter", name: "Starter", usd: 5, points: 500 },
-  { id: "boost", name: "Boost", usd: 10, points: 1_000 },
-  { id: "bundle", name: "Bundle", usd: 25, points: 3_000 },
-  { id: "support", name: "Support", usd: 50, points: 6_000 },
-  { id: "patron", name: "Patron", usd: 100, points: 12_500, bestValue: true },
+  {
+    id: "starter",
+    name: "Starter",
+    usd: 5,
+    points: 500,
+    bondItemId: 30464,
+    stripePriceId: "price_1U0XvwFra3ryrFFUHGWiNEqu",
+  },
+  {
+    id: "boost",
+    name: "Boost",
+    usd: 10,
+    points: 1_000,
+    bondItemId: 30497,
+    stripePriceId: "price_1U0XvxFra3ryrFFUqNP3txDp",
+  },
+  {
+    id: "bundle",
+    name: "Bundle",
+    usd: 25,
+    points: 3_000,
+    bondItemId: 30466,
+    stripePriceId: "price_1U0XvyFra3ryrFFUgkdWfNm6",
+  },
+  {
+    id: "support",
+    name: "Support",
+    usd: 50,
+    points: 6_000,
+    bondItemId: 30467,
+    stripePriceId: "price_1U0XvyFra3ryrFFUM5pXo5HJ",
+  },
+  {
+    id: "patron",
+    name: "Patron",
+    usd: 100,
+    points: 12_500,
+    bondItemId: 30468,
+    stripePriceId: "price_1U0XvzFra3ryrFFUmTIaC8Wu",
+    bestValue: true,
+  },
 ];
 
 export type DonatorRank = {
@@ -95,4 +135,20 @@ export function formatPoints(n: number): string {
 
 export function pointsPerDollar(pkg: BondPackage): number {
   return Math.round(pkg.points / pkg.usd);
+}
+
+export function getBondPackage(id: string): BondPackage | undefined {
+  return BOND_PACKAGES.find((p) => p.id === id);
+}
+
+/** Resolve Stripe price ID, allowing env overrides per package. */
+export function resolveStripePriceId(pkg: BondPackage): string {
+  const envKey = `STRIPE_PRICE_${pkg.id.toUpperCase()}`;
+  const fromEnv = process.env[envKey]?.trim();
+  return fromEnv || pkg.stripePriceId;
+}
+
+/** Normalize RuneScape-style names for matching. */
+export function normalizeUsername(name: string): string {
+  return name.trim().replace(/\s+/g, " ").toLowerCase();
 }

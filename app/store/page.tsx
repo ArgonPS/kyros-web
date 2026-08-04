@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import { DISCORD_INVITE } from "@/lib/site";
-import {
-  BOND_PACKAGES,
-  DONATOR_RANKS,
-  POINTS_PER_DOLLAR,
-  formatPoints,
-  pointsPerDollar,
-} from "@/lib/store";
+import { DONATOR_RANKS, POINTS_PER_DOLLAR } from "@/lib/store";
 import { PageHero } from "@/components/PageHero";
+import { StorePackages } from "@/components/StorePackages";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -21,7 +16,7 @@ export default function StorePage() {
       <PageHero
         eyebrow="DONATOR POINTS"
         title="Store"
-        lead="Support Kyros and redeem bonds in-game for Donator Points. Spend them at the Donator Point Store."
+        lead="Buy a bond, claim it in-game with ::claim, then redeem for Donator Points."
       >
         <p className="inline-block border border-[color:var(--line)] bg-black/40 px-4 py-2 font-display text-sm tracking-[0.14em] text-[color:var(--gold)] uppercase">
           $1 = {POINTS_PER_DOLLAR} Donator Points
@@ -32,7 +27,6 @@ export default function StorePage() {
       </PageHero>
 
       <div className="mx-auto max-w-6xl px-5 pb-24 md:px-8">
-        {/* Packages */}
         <section aria-labelledby="packages-heading">
           <h2
             id="packages-heading"
@@ -41,53 +35,14 @@ export default function StorePage() {
             Packages
           </h2>
           <p className="mt-3 max-w-2xl text-[color:var(--fg-muted)]">
-            Bond packages match in-game redemption. Payments are not live yet —
-            open a Discord ticket if you need help when checkout launches.
+            Secure checkout via Stripe. Enter your exact in-game username, then
+            claim the bond after payment.
           </p>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {BOND_PACKAGES.map((pkg) => (
-              <article
-                key={pkg.id}
-                className={`panel relative flex flex-col p-6 ${
-                  pkg.bestValue
-                    ? "ring-1 ring-[color:var(--gold)]/50"
-                    : ""
-                }`}
-              >
-                {pkg.bestValue ? (
-                  <span className="absolute top-3 right-3 font-display text-[0.65rem] tracking-[0.16em] text-[color:var(--gold)] uppercase">
-                    Best value
-                  </span>
-                ) : null}
-                <h3 className="font-display text-xl tracking-wide text-[color:var(--gold)]">
-                  {pkg.name}
-                </h3>
-                <p className="mt-4 text-3xl font-semibold tabular-nums">
-                  ${pkg.usd}
-                </p>
-                <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
-                  <span className="tabular-nums text-white">
-                    {formatPoints(pkg.points)}
-                  </span>{" "}
-                  DP
-                  <span className="mt-1 block text-xs">
-                    {pointsPerDollar(pkg)} pts / $
-                  </span>
-                </p>
-                <button
-                  type="button"
-                  disabled
-                  className="btn-primary mt-auto w-full cursor-not-allowed opacity-50"
-                >
-                  Coming soon
-                </button>
-              </article>
-            ))}
+          <div className="mt-8">
+            <StorePackages />
           </div>
         </section>
 
-        {/* Ranks */}
         <section className="mt-20" aria-labelledby="ranks-heading">
           <h2
             id="ranks-heading"
@@ -122,14 +77,14 @@ export default function StorePage() {
                   ${rank.threshold.toLocaleString("en-US")}+
                 </span>
                 <span className="text-sm text-[color:var(--fg-muted)] md:ml-auto">
-                  Distinct chat icon · {rank.doubleDropChance}% double-drop chance
+                  Distinct chat icon · {rank.doubleDropChance}% double-drop
+                  chance
                 </span>
               </li>
             ))}
           </ul>
         </section>
 
-        {/* How it works */}
         <section className="mt-20" aria-labelledby="how-heading">
           <h2
             id="how-heading"
@@ -143,18 +98,18 @@ export default function StorePage() {
                 1. Buy a bond
               </span>
               <p className="mt-1">
-                Choose a package when payments go live. Bonds grant Donator
-                Points (not Kyro Points — those are the separate earnable shop
-                currency).
+                Enter your username and pay with Stripe Checkout. Bonds grant
+                Donator Points after you redeem them (not Kyro Points).
               </p>
             </li>
             <li>
               <span className="font-display tracking-wide text-white uppercase">
-                2. Redeem in-game
+                2. Claim &amp; redeem in-game
               </span>
               <p className="mt-1">
-                Use the bond from your inventory to add points to your account
-                and update lifetime donated.
+                Type <span className="text-white">::claim</span> to receive the
+                bond, then redeem it from your inventory for points and lifetime
+                donated.
               </p>
             </li>
             <li>
