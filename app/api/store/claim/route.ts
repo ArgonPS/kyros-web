@@ -46,7 +46,6 @@ export async function GET(req: Request) {
   }
 
   const usernameKey = normalizeUsername(usernameRaw);
-  const stripe = getStripe();
 
   // Escape single quotes for Stripe search query language
   const safeKey = usernameKey.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
@@ -55,6 +54,17 @@ export async function GET(req: Request) {
   const viewModels: DonationViewModel[] = [];
   let totalSpentThisClaim = 0;
   let overallSpent = 0;
+
+  let stripe;
+  try {
+    stripe = getStripe();
+  } catch (err) {
+    console.error("store/claim stripe config", err);
+    return NextResponse.json(
+      { error: "Stripe is not configured on the server" },
+      { status: 503 },
+    );
+  }
 
   try {
     const unclaimed = await stripe.paymentIntents.search({
