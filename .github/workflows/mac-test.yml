@@ -49,7 +49,8 @@ jobs:
           echo "=========== hs_err / crash reports ==========="
           ls -la "$HOME/Library/Logs/DiagnosticReports/" 2>/dev/null || echo "(no reports dir)"
           for f in "$HOME"/Library/Logs/DiagnosticReports/*; do
-            [ -e "$f" ] || continue
+            [ -f "$f" ] || continue
             echo "--------- $f"
-            head -80 "$f"
+            head -80 "$f" || true
           done
+          exit 0
