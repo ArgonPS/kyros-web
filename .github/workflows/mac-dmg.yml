@@ -31,7 +31,9 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          # The client jar contains classes compiled for Java 21 (class file 65),
+          # so the bundled runtime must be >= 21 or the app crashes on startup.
+          java-version: "21"
 
       - name: Download release jar
         env:
