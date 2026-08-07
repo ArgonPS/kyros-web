@@ -38,12 +38,12 @@ export const DOWNLOAD_OPTIONS: DownloadOption[] = [
   {
     id: "mac",
     title: "macOS",
-    badge: ".command setup",
-    subtitle: "Requires Java 17+",
+    badge: ".dmg installer",
+    subtitle: "Apple Silicon (M1 and newer) — Java included",
     description:
-      "Installs into ~/Applications/Kyros. macOS will warn about an unverified app — see the Mac install steps below to get past it. Install Temurin Java if needed.",
-    href: `${RELEASE_BASE}/Kyros-Mac-Setup.command`,
-    cta: "Download Mac Setup",
+      "Open the DMG and drag Kyros to Applications. No Java install needed. First launch: right-click the app → Open (see Mac steps below). Old Intel Mac? Use the .command setup linked below.",
+    href: `${RELEASE_BASE}/Kyros-Mac-AppleSilicon.dmg`,
+    cta: "Download Mac DMG",
   },
 ];
 

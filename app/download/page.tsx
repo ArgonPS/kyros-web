@@ -60,39 +60,42 @@ export default function DownloadPage() {
                 Installing on Mac (&quot;Apple could not verify…&quot; warning)
               </h3>
               <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
-                The Kyros installer isn&apos;t signed with an Apple developer
-                certificate yet, so macOS shows a security warning. The
-                installer is safe — here&apos;s the easiest way to run it:
+                Kyros isn&apos;t signed with an Apple developer certificate
+                yet, so macOS shows a one-time security warning. The app is
+                safe — install it like this:
               </p>
               <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-[color:var(--fg-muted)]">
                 <li>
-                  Download <span className="text-white">Kyros-Mac-Setup.command</span> above.
+                  Download the <span className="text-white">Mac DMG</span>{" "}
+                  above (Java is bundled — nothing else to install).
                 </li>
                 <li>
-                  Open the <span className="text-white">Terminal</span> app
-                  (press <span className="text-white">Cmd+Space</span>, type
-                  &quot;Terminal&quot;, hit Enter).
+                  Open the DMG and drag{" "}
+                  <span className="text-white">Kyros</span> into{" "}
+                  <span className="text-white">Applications</span>.
                 </li>
                 <li>
-                  Paste this and press Enter:
-                  <code className="mt-2 block rounded bg-black/40 px-3 py-2 font-mono text-[color:var(--gold)]">
-                    bash ~/Downloads/Kyros-Mac-Setup.command
-                  </code>
-                </li>
-                <li>
-                  Kyros installs to{" "}
-                  <span className="text-white">~/Applications/Kyros</span> and
-                  launches. Next time, just double-click{" "}
-                  <span className="text-white">Play-Kyros.command</span> in
-                  that folder.
+                  First launch only:{" "}
+                  <span className="text-white">right-click the Kyros app → Open</span>.
+                  If macOS still blocks it, go to System Settings → Privacy
+                  &amp; Security, scroll down, and click{" "}
+                  <span className="text-white">Open Anyway</span>, then launch
+                  again.
                 </li>
               </ol>
               <p className="mt-4 text-sm text-[color:var(--fg-muted)]">
-                Alternative: double-click the download, dismiss the warning,
-                then go to System Settings → Privacy &amp; Security and click{" "}
-                <span className="text-white">Open Anyway</span>. If the game
-                doesn&apos;t start, install Java 17 below and try again.
+                On an older Intel Mac (pre-2020)? Download{" "}
+                <a
+                  href="https://github.com/ArgonPS/kyros-web/releases/latest/download/Kyros-Mac-Setup.command"
+                  className="text-[color:var(--gold)] underline-offset-4 hover:underline"
+                >
+                  Kyros-Mac-Setup.command
+                </a>
+                , install Java 17 below, then run this in Terminal:
               </p>
+              <code className="mt-2 block rounded bg-black/40 px-3 py-2 font-mono text-sm text-[color:var(--gold)]">
+                bash ~/Downloads/Kyros-Mac-Setup.command
+              </code>
             </article>
 
             <article className="panel p-7">
