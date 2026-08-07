@@ -4,11 +4,46 @@ import Image from "next/image";
 import { useState } from "react";
 
 const SHOTS = [
-  { src: "/gallery/boss.png", alt: "Bossing on Kyros", label: "Bossing" },
-  { src: "/gallery/raid.png", alt: "Raids on Kyros", label: "Raids" },
-  { src: "/gallery/skilling.png", alt: "Skilling on Kyros", label: "Skilling" },
-  { src: "/gallery/pvp.png", alt: "Wilderness PvP on Kyros", label: "Wilderness" },
-  { src: "/gallery/city.png", alt: "Trading hub on Kyros", label: "Economy" },
+  {
+    src: "/gallery/home.png",
+    alt: "Blood Torva at the Kyros home hub",
+    label: "Home & Gear",
+  },
+  {
+    src: "/gallery/nex.png",
+    alt: "Fighting Nex on Kyros",
+    label: "Nex",
+  },
+  {
+    src: "/gallery/whisperer.png",
+    alt: "The Whisperer on Kyros",
+    label: "The Whisperer",
+  },
+  {
+    src: "/gallery/gear.png",
+    alt: "Blood Torva melee setup on Kyros",
+    label: "Blood Torva",
+  },
+  {
+    src: "/gallery/perks.png",
+    alt: "Kyros Perk Repository",
+    label: "Perk Repository",
+  },
+  {
+    src: "/gallery/perk-tree.png",
+    alt: "Kyros Perks System Interface",
+    label: "Perk Tree",
+  },
+  {
+    src: "/gallery/inferno.png",
+    alt: "Inferno on Kyros",
+    label: "Inferno",
+  },
+  {
+    src: "/gallery/construction.png",
+    alt: "Construction on Kyros",
+    label: "Construction",
+  },
 ];
 
 export function GalleryCarousel() {
@@ -29,7 +64,7 @@ export function GalleryCarousel() {
           src={shot.src}
           alt={shot.alt}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes="(max-width: 1024px) 100vw, 960px"
           priority={index === 0}
         />
@@ -62,7 +97,7 @@ export function GalleryCarousel() {
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-5 gap-2">
+      <div className="mt-4 grid grid-cols-4 gap-2 md:grid-cols-8">
         {SHOTS.map((s, i) => (
           <button
             key={s.src}
@@ -74,7 +109,13 @@ export function GalleryCarousel() {
                 : "border-white/10 opacity-70 hover:opacity-100"
             }`}
           >
-            <Image src={s.src} alt="" fill className="object-cover" sizes="120px" />
+            <Image
+              src={s.src}
+              alt=""
+              fill
+              className="object-cover object-top"
+              sizes="120px"
+            />
           </button>
         ))}
       </div>

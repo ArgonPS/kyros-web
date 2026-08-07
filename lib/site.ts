@@ -25,33 +25,5 @@ export const TOP_LINKS = [
   { href: "/hiscores", label: "Hiscores" },
 ] as const;
 
-export const NEWS = [
-  {
-    slug: "launch-prep",
-    date: "Aug 3, 2026",
-    title: "Kyros is coming — website & Discord live",
-    excerpt:
-      "The site and Discord are online. VPS provisioning is underway — join Discord for launch pings.",
-  },
-  {
-    slug: "community-open",
-    date: "Aug 3, 2026",
-    title: "Community Discord is open",
-    excerpt:
-      "Rules, tickets, LFG, and announcements are ready. Accept the rules on join to unlock Member.",
-  },
-  {
-    slug: "hiscores-ready",
-    date: "Aug 3, 2026",
-    title: "Hiscores page is ready",
-    excerpt:
-      "Leaderboards UI is live on kyrosps.io — live ranks connect when the world opens.",
-  },
-  {
-    slug: "client-download",
-    date: "Aug 3, 2026",
-    title: "Client download is up",
-    excerpt:
-      "Grab the Windows client from the Play page. It targets play.kyrosps.io — connect when the world goes live.",
-  },
-] as const;
+/** Re-export news so existing imports from `@/lib/site` keep working. */
+export { NEWS } from "@/lib/news";

@@ -1,31 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GalleryCarousel } from "@/components/GalleryCarousel";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { DISCORD_INVITE, NEWS } from "@/lib/site";
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero — Reason-style: brand + pitch + CTAs over full art */}
+      {/* Hero — brand over Nex / Inferno / raids mix */}
       <section className="relative min-h-[88svh] overflow-hidden">
-        <Image
-          src="/kyros-hero-bg.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/50" />
+        <HeroBackdrop />
 
         <div className="relative mx-auto flex min-h-[88svh] max-w-6xl flex-col items-center justify-center px-4 pb-20 pt-16 text-center md:px-8">
           <Image
             src="/kyros-mark.png"
             alt="Kyros"
-            width={96}
-            height={96}
-            className="animate-rise mb-6 h-20 w-20 object-cover md:h-24 md:w-24"
+            width={128}
+            height={128}
+            className="animate-rise mb-6 h-24 w-24 rounded-2xl object-cover shadow-[0_0_40px_rgba(201,162,39,0.18)] md:h-28 md:w-28"
             priority
           />
           <h1 className="animate-rise-delay font-brand text-5xl tracking-[0.14em] text-white sm:text-6xl md:text-7xl">
@@ -82,10 +74,10 @@ export default function HomePage() {
           </div>
           <div className="relative aspect-[16/10] overflow-hidden border border-white/10">
             <Image
-              src="/gallery/raid.png"
-              alt="Kyros raids"
+              src="/gallery/home.png"
+              alt="Kyros home hub in Blood Torva"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
@@ -103,8 +95,8 @@ export default function HomePage() {
               See the world
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-[color:var(--fg-muted)]">
-              Bossing, raids, skilling, wilderness, and the economy — a taste of
-              what&apos;s waiting on Kyros.
+              Nex, DT2 bosses, Inferno, Blood Torva, and the Perk system — a
+              taste of what&apos;s waiting on Kyros.
             </p>
           </div>
           <GalleryCarousel />
@@ -132,7 +124,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {NEWS.map((item) => (
+            {NEWS.slice(0, 3).map((item) => (
               <article
                 key={item.slug}
                 className="border border-white/10 bg-black/40 p-6 transition hover:border-[color:var(--gold)]/50"
@@ -147,7 +139,7 @@ export default function HomePage() {
                   {item.excerpt}
                 </p>
                 <Link
-                  href="/news"
+                  href={`/news/${item.slug}`}
                   className="mt-5 inline-block text-xs font-semibold uppercase tracking-[0.16em] text-[color:var(--gold)]"
                 >
                   Read more
@@ -161,7 +153,7 @@ export default function HomePage() {
       {/* Bottom CTA — Reason style */}
       <section className="relative overflow-hidden py-20 md:py-28">
         <Image
-          src="/gallery/city.png"
+          src="/gallery/gear.png"
           alt=""
           fill
           className="object-cover opacity-30"

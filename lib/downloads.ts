@@ -41,7 +41,7 @@ export const DOWNLOAD_OPTIONS: DownloadOption[] = [
     badge: ".command setup",
     subtitle: "Requires Java 17+",
     description:
-      "Double-click Kyros-Mac-Setup.command to install into ~/Applications/Kyros. Install Temurin Java if needed.",
+      "Installs into ~/Applications/Kyros. macOS will warn about an unverified app — see the Mac install steps below to get past it. Install Temurin Java if needed.",
     href: `${RELEASE_BASE}/Kyros-Mac-Setup.command`,
     cta: "Download Mac Setup",
   },

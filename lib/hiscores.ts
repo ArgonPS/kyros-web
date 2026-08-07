@@ -9,7 +9,13 @@ export type GameMode =
   | "hardcore_group"
   | "ultimate";
 
-export type XpMode = "all" | "easy" | "intermediate" | "hard" | "extreme";
+export type XpMode =
+  | "all"
+  | "easy"
+  | "intermediate"
+  | "hard"
+  | "extreme"
+  | "insane";
 
 export type HiscoreSkill =
   | "overall"
@@ -42,6 +48,8 @@ export type HiscoreRow = {
   username: string;
   level: number;
   experience: number;
+  gameMode?: number;
+  gameExperienceMode?: number;
 };
 
 export const GAME_MODES: { id: GameMode; label: string }[] = [
@@ -60,7 +68,40 @@ export const XP_MODES: { id: XpMode; label: string }[] = [
   { id: "intermediate", label: "Intermediate" },
   { id: "hard", label: "Hard" },
   { id: "extreme", label: "Extreme" },
+  { id: "insane", label: "Insane" },
 ];
+
+export const GAME_MODE_LABELS: Record<number, string> = {
+  0: "Normal",
+  1: "Ironman",
+  2: "Group Ironman",
+  3: "Hardcore Ironman",
+  4: "Hardcore Group Ironman",
+  5: "Ultimate Ironman",
+};
+
+export const XP_MODE_LABELS: Record<number, string> = {
+  0: "Easy",
+  1: "Intermediate",
+  2: "Hard",
+  3: "Extreme",
+  4: "Insane",
+};
+
+export function profileHref(
+  username: string,
+  gameMode?: number,
+  gameExperienceMode?: number,
+) {
+  const base = `/hiscores/${encodeURIComponent(username)}`;
+  const params = new URLSearchParams();
+  if (typeof gameMode === "number") params.set("mode", String(gameMode));
+  if (typeof gameExperienceMode === "number") {
+    params.set("xp", String(gameExperienceMode));
+  }
+  const q = params.toString();
+  return q ? `${base}?${q}` : base;
+}
 
 export const HISCORE_SKILLS: { id: HiscoreSkill; label: string }[] = [
   { id: "overall", label: "Overall" },
@@ -148,17 +189,8 @@ export const HISCORE_BOSSES: { id: string; label: string }[] = [
   { id: "whisperer", label: "The Whisperer" },
   { id: "wintertodt", label: "Wintertodt" },
   { id: "zulrah", label: "Zulrah" },
+  { id: "dominion_of_echoes", label: "Dominion of Echoes" },
 ];
-
-export const PLACEHOLDER_HISCORES: HiscoreRow[] = Array.from(
-  { length: 25 },
-  (_, i) => ({
-    rank: i + 1,
-    username: "—",
-    level: 0,
-    experience: 0,
-  }),
-);
 
 export function formatXp(n: number) {
   return n.toLocaleString("en-US");

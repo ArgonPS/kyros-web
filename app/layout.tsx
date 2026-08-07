@@ -24,18 +24,26 @@ const figtree = Figtree({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kyros — Private OSRS Server",
+    default: "Kyros — Old School. Reforged.",
     template: "%s · Kyros",
   },
   description:
-    "Kyros is a private Old School RuneScape server. Download the client, join Discord, climb hiscores, and vote for rewards.",
+    "Kyros — Old School. Reforged. Download the client, join Discord, climb hiscores, and vote for rewards.",
   metadataBase: new URL("https://kyrosps.io"),
   openGraph: {
-    title: "Kyros",
-    description: "Private Old School RuneScape — forge your legend.",
+    title: "Kyros — Old School. Reforged.",
+    description: "Old School. Reforged. — forge your legend on Kyros.",
     url: "https://kyrosps.io",
     siteName: "Kyros",
     type: "website",
+    images: [{ url: "/kyros-mark.png", width: 512, height: 512, alt: "Kyros" }],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/kyros-mark.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
   },
 };
 

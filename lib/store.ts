@@ -12,51 +12,55 @@ export type BondPackage = {
   stripePriceId: string;
   /** Highlight as best value (Patron $100). */
   bestValue?: boolean;
+  /** Extra points vs base rate (100 DP / $1), e.g. 20 → "Extra 20% Points". */
+  bonusPercent?: number;
 };
 
 /** Matches DonatorBond.redeem amounts + bond item IDs. */
 export const BOND_PACKAGES: BondPackage[] = [
   {
     id: "starter",
-    name: "Starter",
+    name: "Kyros $5 Bond",
     usd: 5,
     points: 500,
     bondItemId: 30464,
-    // Test-mode defaults; override with STRIPE_PRICE_* or live prices via env for production go-live
-    stripePriceId: "price_1U0Y70Fra3ryrFFUBpRETGoR",
+    stripePriceId: "price_1U0XvwFra3ryrFFUHGWiNEqu",
   },
   {
     id: "boost",
-    name: "Boost",
+    name: "Kyros $10 Bond",
     usd: 10,
     points: 1_000,
     bondItemId: 30497,
-    stripePriceId: "price_1U0Y71Fra3ryrFFUiPZfleis",
+    stripePriceId: "price_1U0XvxFra3ryrFFUqNP3txDp",
   },
   {
     id: "bundle",
-    name: "Bundle",
+    name: "Kyros $25 Bond",
     usd: 25,
     points: 3_000,
     bondItemId: 30466,
-    stripePriceId: "price_1U0Y73Fra3ryrFFUgijId8JA",
+    stripePriceId: "price_1U0XvyFra3ryrFFUgkdWfNm6",
+    bonusPercent: 20,
   },
   {
     id: "support",
-    name: "Support",
+    name: "Kyros $50 Bond",
     usd: 50,
     points: 6_000,
     bondItemId: 30467,
-    stripePriceId: "price_1U0Y74Fra3ryrFFUOpeh5mfm",
+    stripePriceId: "price_1U0XvyFra3ryrFFUM5pXo5HJ",
+    bonusPercent: 20,
   },
   {
     id: "patron",
-    name: "Patron",
+    name: "Kyros $100 Bond",
     usd: 100,
     points: 12_500,
     bondItemId: 30468,
-    stripePriceId: "price_1U0Y75Fra3ryrFFUGtIrNgIk",
+    stripePriceId: "price_1U0XvzFra3ryrFFUmTIaC8Wu",
     bestValue: true,
+    bonusPercent: 25,
   },
 ];
 
@@ -136,6 +140,12 @@ export function formatPoints(n: number): string {
 
 export function pointsPerDollar(pkg: BondPackage): number {
   return Math.round(pkg.points / pkg.usd);
+}
+
+/** Bonus label for store UI (null when base rate). */
+export function packageBonusLabel(pkg: BondPackage): string | null {
+  if (!pkg.bonusPercent || pkg.bonusPercent <= 0) return null;
+  return `Extra ${pkg.bonusPercent}% Points`;
 }
 
 export function getBondPackage(id: string): BondPackage | undefined {

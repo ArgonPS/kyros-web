@@ -12,7 +12,7 @@ export default function HiscoresPage() {
     <>
       <section className="relative overflow-hidden border-b border-white/10">
         <Image
-          src="/gallery/boss.png"
+          src="/gallery/nex.png"
           alt=""
           fill
           className="object-cover opacity-25"

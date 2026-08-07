@@ -46,6 +46,7 @@ export async function POST(req: Request) {
     const site = getSiteUrl().replace(/\/$/, "");
     const stripe = getStripe();
 
+    // Prices are Stripe live `currency: usd` — Checkout inherits USD from the Price.
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: priceId, quantity: 1 }],
@@ -58,6 +59,7 @@ export async function POST(req: Request) {
         ingame_username: username,
         ingame_username_key: usernameKey,
         usd_cents: String(pkg.usd * 100),
+        currency: "usd",
       },
       payment_intent_data: {
         metadata: {
@@ -67,12 +69,13 @@ export async function POST(req: Request) {
           ingame_username: username,
           ingame_username_key: usernameKey,
           usd_cents: String(pkg.usd * 100),
+          currency: "usd",
           claimed: "false",
         },
       },
       custom_text: {
         submit: {
-          message: `Bonds will be claimable in-game on account: ${username}`,
+          message: `Bonds will be claimable in-game on account: ${username}. Charged in USD.`,
         },
       },
     });

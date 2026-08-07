@@ -1,19 +1,30 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
+  GAME_MODE_LABELS,
   GAME_MODES,
   HISCORE_BOSSES,
   HISCORE_SKILLS,
-  PLACEHOLDER_HISCORES,
+  XP_MODE_LABELS,
   XP_MODES,
   formatXp,
+  profileHref,
   type BoardTab,
   type GameMode,
+  type HiscoreRow,
   type HiscoreSkill,
   type XpMode,
 } from "@/lib/hiscores";
 import { DISCORD_INVITE } from "@/lib/site";
+
+const EMPTY_ROWS: HiscoreRow[] = Array.from({ length: 25 }, (_, i) => ({
+  rank: i + 1,
+  username: "-",
+  level: 0,
+  experience: 0,
+}));
 
 export function HiscoresBoard() {
   const [tab, setTab] = useState<BoardTab>("skills");
@@ -22,19 +33,52 @@ export function HiscoresBoard() {
   const [mode, setMode] = useState<GameMode>("all");
   const [xpMode, setXpMode] = useState<XpMode>("all");
   const [query, setQuery] = useState("");
+  const [rows, setRows] = useState<HiscoreRow[]>(EMPTY_ROWS);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const categoryLabel =
     tab === "skills"
       ? (HISCORE_SKILLS.find((s) => s.id === skill)?.label ?? "Overall")
       : (HISCORE_BOSSES.find((b) => b.id === boss)?.label ?? "Boss");
 
-  const rows = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return PLACEHOLDER_HISCORES;
-    return PLACEHOLDER_HISCORES.filter((r) =>
-      r.username.toLowerCase().includes(q),
-    );
-  }, [query]);
+  useEffect(() => {
+    const controller = new AbortController();
+    const params = new URLSearchParams({
+      tab,
+      skill,
+      boss,
+      mode,
+      xp: xpMode,
+      q: query.trim(),
+    });
+
+    setLoading(true);
+    setError(null);
+
+    const timer = setTimeout(() => {
+      fetch(`/api/hiscores?${params}`, { signal: controller.signal })
+        .then(async (res) => {
+          const data = (await res.json()) as {
+            rows?: HiscoreRow[];
+            error?: string;
+          };
+          if (!res.ok) throw new Error(data.error || "Failed to load");
+          setRows(data.rows?.length ? data.rows : EMPTY_ROWS);
+        })
+        .catch((err: unknown) => {
+          if (err instanceof DOMException && err.name === "AbortError") return;
+          setError(err instanceof Error ? err.message : "Failed to load");
+          setRows(EMPTY_ROWS);
+        })
+        .finally(() => setLoading(false));
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [tab, skill, boss, mode, xpMode, query]);
 
   const sidebarItems =
     tab === "skills"
@@ -45,7 +89,6 @@ export function HiscoresBoard() {
 
   return (
     <div>
-      {/* Skills / Bosses tabs — Reason style */}
       <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
         {(
           [
@@ -68,7 +111,6 @@ export function HiscoresBoard() {
         ))}
       </div>
 
-      {/* Filters */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <label className="block text-xs font-display tracking-[0.16em] text-[color:var(--fg-muted)] uppercase">
           XP Mode
@@ -142,16 +184,22 @@ export function HiscoresBoard() {
             {categoryLabel} Hiscores
           </h2>
           <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
-            Live ranks connect when the world opens — filters are ready now.
+            {loading
+              ? "Loading ranks…"
+              : "Click a username for full stats. Ranks update on logout."}
+            {error ? (
+              <span className="mt-1 block text-red-400">{error}</span>
+            ) : null}
           </p>
 
           <div className="mt-6 overflow-hidden border border-white/10 bg-black/40">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[560px] text-left text-sm">
+              <table className="w-full min-w-[640px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/[0.03] font-display text-xs tracking-[0.16em] text-[color:var(--fg-muted)] uppercase">
                     <th className="px-4 py-3.5 font-medium">Rank</th>
                     <th className="px-4 py-3.5 font-medium">Username</th>
+                    <th className="px-4 py-3.5 font-medium">Mode</th>
                     <th className="px-4 py-3.5 font-medium">
                       {tab === "skills" ? "Level" : "Kills"}
                     </th>
@@ -161,34 +209,63 @@ export function HiscoresBoard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((row, i) => (
-                    <tr
-                      key={row.rank}
-                      className={`border-b border-white/5 text-[color:var(--fg-muted)] last:border-0 ${
-                        i % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"
-                      }`}
-                    >
-                      <td className="px-4 py-3 tabular-nums text-[color:var(--gold)]">
-                        {row.rank}
-                      </td>
-                      <td className="px-4 py-3 text-white">{row.username}</td>
-                      <td className="px-4 py-3 tabular-nums">
-                        {row.level || "—"}
-                      </td>
-                      <td className="px-4 py-3 tabular-nums">
-                        {row.experience ? formatXp(row.experience) : "—"}
-                      </td>
-                    </tr>
-                  ))}
+                  {rows.map((row, i) => {
+                    const empty = !row.username || row.username === "-";
+                    return (
+                      <tr
+                        key={`${row.rank}-${row.username}-${row.gameMode ?? 0}-${row.gameExperienceMode ?? 0}`}
+                        className={`border-b border-white/5 text-[color:var(--fg-muted)] last:border-0 ${
+                          i % 2 === 0 ? "bg-transparent" : "bg-white/[0.015]"
+                        }`}
+                      >
+                        <td className="px-4 py-3 tabular-nums text-[color:var(--gold)]">
+                          {row.rank}
+                        </td>
+                        <td className="px-4 py-3 text-white">
+                          {empty ? (
+                            "-"
+                          ) : (
+                            <Link
+                              href={profileHref(
+                                row.username,
+                                row.gameMode,
+                                row.gameExperienceMode,
+                              )}
+                              className="hover:text-[color:var(--gold)] hover:underline"
+                            >
+                              {row.username}
+                            </Link>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          {empty ? (
+                            "—"
+                          ) : (
+                            <span title={XP_MODE_LABELS[row.gameExperienceMode ?? 0]}>
+                              {GAME_MODE_LABELS[row.gameMode ?? 0] ?? "—"}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 tabular-nums">
+                          {row.level || "—"}
+                        </td>
+                        <td className="px-4 py-3 tabular-nums">
+                          {row.experience ? formatXp(row.experience) : "—"}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
 
           <p className="mt-6 max-w-2xl text-sm text-[color:var(--fg-muted)]">
-            Empty ranks are placeholders until the hiscores API is live. In-game{" "}
+            In-game{" "}
             <code className="text-[color:var(--gold)]">::hiscores</code> opens
-            this page.{" "}
+            this page. Staff accounts are not ranked. Hardcore ironmen are under{" "}
+            <strong className="font-medium text-white/80">Hardcore Ironman</strong>
+            , not the regular Ironman filter.{" "}
             <a
               href={DISCORD_INVITE}
               target="_blank"
@@ -196,8 +273,8 @@ export function HiscoresBoard() {
               className="text-[color:var(--gold)] hover:underline"
             >
               Join Discord
-            </a>{" "}
-            for launch updates.
+            </a>
+            .
           </p>
         </div>
       </div>

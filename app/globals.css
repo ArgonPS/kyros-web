@@ -227,6 +227,74 @@ a {
   }
 }
 
+@keyframes hero-drift {
+  from {
+    transform: scale(1.25) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.32) translate3d(1.2%, -1%, 0);
+  }
+}
+
+@keyframes hero-ken-nex {
+  from {
+    transform: scale(1.12) translate3d(-1.5%, 1%, 0);
+  }
+  to {
+    transform: scale(1.22) translate3d(1.8%, -1.2%, 0);
+  }
+}
+
+@keyframes hero-ken-inferno {
+  from {
+    transform: scale(1.14) translate3d(1.2%, -0.8%, 0);
+  }
+  to {
+    transform: scale(1.24) translate3d(-1.6%, 1.4%, 0);
+  }
+}
+
+@keyframes hero-ken-raid {
+  from {
+    transform: scale(1.1) translate3d(0, 1.2%, 0);
+  }
+  to {
+    transform: scale(1.2) translate3d(0, -1.5%, 0);
+  }
+}
+
+@keyframes hero-shimmer {
+  0% {
+    background-position: 0% 40%;
+  }
+  100% {
+    background-position: 100% 60%;
+  }
+}
+
+.hero-ken-nex {
+  animation: hero-ken-nex 9s ease-in-out infinite alternate;
+}
+
+.hero-ken-inferno {
+  animation: hero-ken-inferno 9s ease-in-out infinite alternate;
+}
+
+.hero-ken-raid {
+  animation: hero-ken-raid 9s ease-in-out infinite alternate;
+}
+
+.hero-shimmer {
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 220, 150, 0.12) 45%,
+    transparent 70%
+  );
+  background-size: 220% 220%;
+  animation: hero-shimmer 10s ease-in-out infinite alternate;
+}
+
 .animate-rise {
   animation: rise-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -247,5 +315,13 @@ a {
   .content-tile::before {
     animation: none;
     transition: none;
+  }
+
+  [class*="hero-drift"],
+  .hero-ken-nex,
+  .hero-ken-inferno,
+  .hero-ken-raid,
+  .hero-shimmer {
+    animation: none !important;
   }
 }

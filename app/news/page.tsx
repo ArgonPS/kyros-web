@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NEWS } from "@/lib/site";
+import { NEWS } from "@/lib/news";
 import { PageHero } from "@/components/PageHero";
 
 export const metadata: Metadata = {
@@ -24,9 +24,20 @@ export default function NewsPage() {
                 {item.date}
               </p>
               <h2 className="mt-2 font-display text-2xl tracking-wide text-white uppercase">
-                {item.title}
+                <Link
+                  href={`/news/${item.slug}`}
+                  className="hover:text-[color:var(--gold)]"
+                >
+                  {item.title}
+                </Link>
               </h2>
               <p className="mt-3 text-[color:var(--fg-muted)]">{item.excerpt}</p>
+              <Link
+                href={`/news/${item.slug}`}
+                className="mt-4 inline-block text-xs font-semibold tracking-[0.16em] text-[color:var(--gold)] uppercase hover:underline"
+              >
+                Read more →
+              </Link>
             </li>
           ))}
         </ul>

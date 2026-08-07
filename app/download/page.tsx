@@ -55,6 +55,46 @@ export default function DownloadPage() {
           </h2>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <article className="panel p-7 md:col-span-2">
+              <h3 className="text-xl font-semibold text-white">
+                Installing on Mac (&quot;Apple could not verify…&quot; warning)
+              </h3>
+              <p className="mt-2 text-sm text-[color:var(--fg-muted)]">
+                The Kyros installer isn&apos;t signed with an Apple developer
+                certificate yet, so macOS shows a security warning. The
+                installer is safe — here&apos;s the easiest way to run it:
+              </p>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-[color:var(--fg-muted)]">
+                <li>
+                  Download <span className="text-white">Kyros-Mac-Setup.command</span> above.
+                </li>
+                <li>
+                  Open the <span className="text-white">Terminal</span> app
+                  (press <span className="text-white">Cmd+Space</span>, type
+                  &quot;Terminal&quot;, hit Enter).
+                </li>
+                <li>
+                  Paste this and press Enter:
+                  <code className="mt-2 block rounded bg-black/40 px-3 py-2 font-mono text-[color:var(--gold)]">
+                    bash ~/Downloads/Kyros-Mac-Setup.command
+                  </code>
+                </li>
+                <li>
+                  Kyros installs to{" "}
+                  <span className="text-white">~/Applications/Kyros</span> and
+                  launches. Next time, just double-click{" "}
+                  <span className="text-white">Play-Kyros.command</span> in
+                  that folder.
+                </li>
+              </ol>
+              <p className="mt-4 text-sm text-[color:var(--fg-muted)]">
+                Alternative: double-click the download, dismiss the warning,
+                then go to System Settings → Privacy &amp; Security and click{" "}
+                <span className="text-white">Open Anyway</span>. If the game
+                doesn&apos;t start, install Java 17 below and try again.
+              </p>
+            </article>
+
             <article className="panel p-7">
               <h3 className="text-xl font-semibold text-white">
                 Download Java 17

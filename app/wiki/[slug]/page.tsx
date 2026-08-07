@@ -32,7 +32,7 @@ const articles: Record<
     body: [
       "Type ::commands in-game for the full scroll. Common player commands:",
       "Teleports: ::home / ::edge, ::train, ::slayer, ::shops, ::cox / ::raids / ::tob, ::gwd, ::mining, ::mlm, ::wcguild, ::abyss, ::dz (donator zone).",
-      "Boss / event shortcuts: ::vb / ::gb / ::db / ::malakar, ::globalboss, plus named boss commands (for example ::duke, ::levi, ::muspah).",
+      "Boss / event shortcuts: ::vb / ::gb / ::db / ::malakar, ::globalboss, plus named boss commands (for example ::duke, ::levi, ::muspah). See the news post “How the Donator Boss works” for the community donation meter.",
       "Account & rewards: ::donated / ::claim, ::vote / ::claimvote, ::clear / ::empty, ::upgrade, ::task, ::bosstask, ::scrolls, ::raffle, ::dailies, ::yell, ::changepass.",
       "Website shortcuts: ::donate, ::vote, ::discord, ::hiscores.",
       "Staff and debug commands are not published publicly.",

@@ -47,7 +47,7 @@ export function SiteHeader() {
               alt=""
               width={42}
               height={42}
-              className="h-10 w-10 object-cover"
+              className="h-10 w-10 rounded-lg object-cover"
               priority
             />
             <span className="font-brand text-xl tracking-[0.2em] text-white md:text-2xl">
