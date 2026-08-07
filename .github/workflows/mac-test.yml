@@ -1,0 +1,55 @@
+# Diagnostic: launches the released Mac app on a macOS runner and dumps all
+# logs/crash reports, to debug "opens then closes" reports from players.
+name: Test Mac App
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag holding the DMG"
+        required: true
+        default: "client-v8"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-14
+    steps:
+      - name: Download and mount DMG
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "${{ inputs.tag }}" -p Kyros-Mac-AppleSilicon.dmg -R "${{ github.repository }}"
+          hdiutil attach Kyros-Mac-AppleSilicon.dmg -nobrowse -mountpoint /tmp/kyrosdmg
+          cp -R /tmp/kyrosdmg/Kyros.app /tmp/Kyros.app
+          hdiutil detach /tmp/kyrosdmg
+
+      - name: Launch app and wait
+        run: |
+          /tmp/Kyros.app/Contents/MacOS/Kyros > /tmp/stdout.log 2>&1 &
+          APP_PID=$!
+          echo "APP_PID=$APP_PID"
+          sleep 75
+          if kill -0 $APP_PID 2>/dev/null; then
+            echo "RESULT: app still running after 75s (no startup crash)"
+            kill $APP_PID || true
+          else
+            echo "RESULT: app EXITED before 75s"
+          fi
+
+      - name: Dump logs
+        if: always()
+        run: |
+          echo "=========== stdout/stderr ==========="
+          cat /tmp/stdout.log 2>/dev/null || echo "(none)"
+          echo "=========== client.log ==========="
+          cat "$HOME/.kyros/.runelite/logs/client.log" 2>/dev/null || echo "(none)"
+          echo "=========== hs_err / crash reports ==========="
+          ls -la "$HOME/Library/Logs/DiagnosticReports/" 2>/dev/null || echo "(no reports dir)"
+          for f in "$HOME"/Library/Logs/DiagnosticReports/*; do
+            [ -e "$f" ] || continue
+            echo "--------- $f"
+            head -80 "$f"
+          done
