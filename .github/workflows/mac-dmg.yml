@@ -63,6 +63,8 @@ jobs:
             --icon kyros.icns \
             --java-options "-ea" \
             --java-options "--add-opens=java.base/java.lang=ALL-UNNAMED" \
+            --java-options "--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED" \
+            --java-options "--add-exports=java.desktop/com.apple.eawt=ALL-UNNAMED" \
             --mac-package-name Kyros \
             --dest out
           mv out/Kyros-*.dmg "Kyros-Mac-${{ matrix.suffix }}.dmg"

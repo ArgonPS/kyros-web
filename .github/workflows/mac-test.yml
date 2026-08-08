@@ -32,12 +32,19 @@ jobs:
           APP_PID=$!
           echo "APP_PID=$APP_PID"
           sleep 75
+          FAIL=0
           if kill -0 $APP_PID 2>/dev/null; then
-            echo "RESULT: app still running after 75s (no startup crash)"
+            echo "RESULT: app still running after 75s"
             kill $APP_PID || true
           else
             echo "RESULT: app EXITED before 75s"
+            FAIL=1
           fi
+          if grep -q -e "Failure during startup" -e "Uncaught exception" /tmp/stdout.log; then
+            echo "RESULT: startup error found in log"
+            FAIL=1
+          fi
+          exit $FAIL
 
       - name: Dump logs
         if: always()
